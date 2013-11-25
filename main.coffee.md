@@ -1,18 +1,21 @@
 Command Stack
-=============
+-------------
 
 A simple stack based implementation of executable and undoable commands.
 
-    CommandStack = ->
-      stack = []
-      index = 0
+    CommandStack = (stack=[]) ->
+      index = stack.length
 
       execute: (command) ->
         stack[index] = command
         command.execute()
 
+        index += 1
+
         # Be sure to blast obsolete redos
-        stack.length = index += 1
+        stack.length = index
+
+        return this
 
       undo: ->
         if @canUndo()
@@ -41,4 +44,12 @@ A simple stack based implementation of executable and undoable commands.
       canRedo: ->
         stack[index]?
 
+      stack: ->
+        stack.slice(0, index)
+
     module.exports = CommandStack
+
+TODO
+----
+
+Integrate Observables
