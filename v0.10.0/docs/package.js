@@ -1,4 +1,7 @@
-window["distri/command-stack:v0.10.0"]({
+(function(pkg) {
+  // Expose a require for our package so scripts can access our modules
+  window.require = Require.generateFor(pkg);
+})({
   "version": "0.10.0",
   "source": {
     "main.coffee.md": {
